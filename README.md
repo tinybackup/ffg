@@ -1,4 +1,5 @@
-# ffg
+# Fast Forward, Gleam!
+An FFmpeg wrapper for Gleam based on the Elixir FFmpex library.
 
 [![Package Version](https://img.shields.io/hexpm/v/ffg)](https://hex.pm/packages/ffg)
 [![Hex Docs](https://img.shields.io/badge/hex-docs-ffaff3)](https://hexdocs.pm/ffg/)
