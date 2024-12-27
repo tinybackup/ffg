@@ -3,9 +3,11 @@ import gleam/io
 pub fn main() {
   new()
   |> input_file("test.mp4")
-  |> output_file("testout.mp4")
-  // |> stream_type_specifier(Video)
-  |> file_option(VideoFilter("scale=280:-2"))
+  |> output_file("testout.avi")
+  |> stream_type_specifier(Video)
+  // |> file_option(VideoFilter("scale=280:-2"))
+  |> file_option(VideoCodec("libvpx"))
+  // |> file_option(Format("avi"))
   |> execute
   // |> prepare
   |> io.debug
@@ -20,6 +22,7 @@ pub type Option {
   FastFirstPass(Bool)
   CRF(String)
   CRFMax(String)
+  Format(String)
 
   // Audio options
   AudioCodec(String)
@@ -68,6 +71,7 @@ fn get_option(option: Option) -> FFmpexOption {
       })
     CRF(crf) -> option_crf(crf)
     CRFMax(crf) -> option_crf_max(crf)
+    Format(format) -> option_f(format)
     AudioCodec(codec) -> option_acodec(codec)
     VideoCodec(codec) -> option_vcodec(codec)
     FrameRate(rate) -> option_r(rate)
@@ -131,3 +135,6 @@ fn option_vf(option: String) -> FFmpexOption
 
 @external(erlang, "Elixir.FFmpex.Options.Video.Libx264", "option_b")
 fn option_b(option: String) -> FFmpexOption
+
+@external(erlang, "Elixir.FFmpex.Option", "option_f")
+fn option_f(option: String) -> FFmpexOption
